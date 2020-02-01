@@ -19,5 +19,9 @@ namespace Auth.Models.Entities
         /// Set to true if this user needs to reset password
         /// </summary>
         public bool ResetPassword { get; set; }
+        /// <summary>
+        /// Navigation property: UserCred
+        /// </summary>
+        //public UserCred UserCred { get; set; }
     }
 }

@@ -21,6 +21,7 @@ namespace Auth.Web.Controllers
         //[HttpOptions]
         public async Task<IActionResult> Post([FromBody] PasswordTokenRequest loginRequest)
         {
+            //logger here
             string userAgent = GetUserAgent();
             return new UnauthorizedResult();
         }
