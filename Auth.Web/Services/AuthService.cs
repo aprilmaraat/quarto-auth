@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Auth.Models.Entities;
+using Quarto.Auth.Models.Entities;
 using System.Threading.Tasks;
 
-namespace Auth.Web.Services
+namespace Quarto.Auth.Web.Services
 {
     public class AuthService
     {

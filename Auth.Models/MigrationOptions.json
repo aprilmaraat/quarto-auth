@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "Master": "Data Source=localhost\\SQLEXPRESS;Initial Catalog=\"Quarto.Master\";User ID=sa;Password=pass123456"
+  }
+}

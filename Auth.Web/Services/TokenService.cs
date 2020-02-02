@@ -1,12 +1,12 @@
-﻿using Auth.Models.Entities;
-using Auth.Web.Models;
+﻿using Quarto.Auth.Models.Entities;
+using Quarto.Auth.Web.Models;
 using System;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Diagnostics;
 
-namespace Auth.Web.Services
+namespace Quarto.Auth.Web.Services
 {
     public class TokenService
     {

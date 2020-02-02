@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Auth.Models.Entities;
+using Quarto.Auth.Models.Entities;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Primitives;
-using Auth.Web.Models;
+using Quarto.Auth.Web.Models;
 
-namespace Auth.Web.Controllers
+namespace Quarto.Auth.Web.Controllers
 {
     [Route("[controller]")]
     public class TokenController : Controller

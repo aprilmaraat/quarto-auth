@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Auth.Models.Entities
+namespace Quarto.Auth.Models.Entities
 {
     public enum UserType : byte
     {

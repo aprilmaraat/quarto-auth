@@ -1,7 +1,7 @@
-﻿using Auth.Models.Entities;
+﻿using Quarto.Auth.Models.Entities;
 using Newtonsoft.Json;
 
-namespace Auth.Web.Models
+namespace Quarto.Auth.Web.Models
 {
     public class AuthResponse
     {

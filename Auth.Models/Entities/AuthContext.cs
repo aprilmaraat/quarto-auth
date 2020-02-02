@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Auth.Models.Entities
+namespace Quarto.Auth.Models.Entities
 {
     public partial class AuthContext : DbContext
     {
