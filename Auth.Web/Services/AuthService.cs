@@ -15,7 +15,7 @@ namespace Auth.Web.Services
         private static string GetAuthHash(string password)
         {
             PasswordHasher<string> passwordHasher = new PasswordHasher<string>();
-            return passwordHasher.;
+            return password;
         }
     }
 }

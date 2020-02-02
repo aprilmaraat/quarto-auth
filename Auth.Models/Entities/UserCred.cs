@@ -12,6 +12,7 @@ namespace Auth.Models.Entities
         /// <summary>
         /// Navigation Property: UserData
         /// </summary>
-        //public UserData User { get; set; }
+        public virtual UserData User { get; set; }
+        public virtual EnumUserType EnumUserType { get; set; }
     }
 }

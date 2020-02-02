@@ -22,6 +22,6 @@ namespace Auth.Models.Entities
         /// <summary>
         /// Navigation property: UserCred
         /// </summary>
-        //public UserCred UserCred { get; set; }
+        public virtual UserCred UserCred { get; set; }
     }
 }
