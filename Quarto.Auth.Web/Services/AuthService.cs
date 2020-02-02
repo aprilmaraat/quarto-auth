@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Quarto.Auth.Models.Entities;
+using Quarto.Auth.EF;
 using System.Threading.Tasks;
 
 namespace Quarto.Auth.Web.Services

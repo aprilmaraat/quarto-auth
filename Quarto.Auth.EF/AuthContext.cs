@@ -1,13 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+using Quarto.Auth.Models;
 
-namespace Quarto.Auth.Models.Entities
+namespace Quarto.Auth.EF
 {
     public partial class AuthContext : DbContext
     {
         public virtual DbSet<EnumUserType> EnumUserType { get; set; }
         public virtual DbSet<UserData> UserData { get; set; }
         public virtual DbSet<UserCred> UserCred { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {

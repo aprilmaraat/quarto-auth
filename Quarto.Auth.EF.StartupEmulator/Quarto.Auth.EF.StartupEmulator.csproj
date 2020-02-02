@@ -12,4 +12,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Quarto.Auth.EF\Quarto.Auth.EF.csproj" />
+  </ItemGroup>
+
 </Project>

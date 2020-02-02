@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Quarto.Auth.Models.Entities;
+using Quarto.Auth.EF;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Primitives;
 using Quarto.Auth.Web.Models;

@@ -1,4 +1,4 @@
-﻿using Quarto.Auth.Models.Entities;
+﻿using Quarto.Auth.Models;
 using Newtonsoft.Json;
 
 namespace Quarto.Auth.Web.Models

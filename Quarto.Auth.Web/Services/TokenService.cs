@@ -1,5 +1,5 @@
-﻿using Quarto.Auth.Models.Entities;
-using Quarto.Auth.Web.Models;
+﻿using Quarto.Auth.EF;
+using Quarto.Auth.Models;
 using System;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;

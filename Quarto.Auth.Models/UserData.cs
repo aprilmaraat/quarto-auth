@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Quarto.Auth.Models.Entities
+namespace Quarto.Auth.Models
 {
     public partial class UserData
     {
