@@ -8,5 +8,7 @@ namespace Quarto.Auth.EF.StartupEmulator
         {
             Console.WriteLine("Hello World!");
         }
+
+        //public class AuthContextFactory : IDesignTimeDbContextFactory<AuthCon>
     }
 }

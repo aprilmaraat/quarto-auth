@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Auth.Models\Quarto.Auth.Models.csproj" />
+    <ProjectReference Include="..\Quarto.Auth.Models\Quarto.Auth.Models.csproj" />
   </ItemGroup>
 
 
