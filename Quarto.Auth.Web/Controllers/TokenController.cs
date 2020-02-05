@@ -19,12 +19,16 @@ namespace Quarto.Auth.Web.Controllers
 
         [HttpPost]
         //[HttpOptions]
-        public async Task<IActionResult> Post([FromBody] PasswordTokenRequest loginRequest)
-        {
-            //logger here
-            string userAgent = GetUserAgent();
-            return new UnauthorizedResult();
-        }
+        //public async Task<IActionResult> Post([FromBody] PasswordTokenRequest loginRequest)
+        //{
+        //    //logger here
+        //    string userAgent = GetUserAgent();
+
+        //    //if(loginRequest.UserType == 1)
+
+
+        //    return new UnauthorizedResult();
+        //}
 
         /// <summary>
         /// The User-Agent request header is a characteristic string 

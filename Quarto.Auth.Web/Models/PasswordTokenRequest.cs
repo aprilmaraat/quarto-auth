@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Quarto.Auth.Models;
 
 namespace Quarto.Auth.Web.Models
 {
@@ -13,6 +14,8 @@ namespace Quarto.Auth.Web.Models
         public string Password { get; set; }
         [JsonProperty("username")]
         public string UserName { get; set; }
+
+        public UserType UserType { get; set; }
     }
 
     public class PasswordTokenFormRequest : IPasswordTokenRequest

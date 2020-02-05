@@ -6,10 +6,10 @@ namespace Quarto.Auth.Web.Models
     public class AuthResponse
     {
         [JsonProperty("user")]
-        public BusinessUser User { get; set; }
+        public LoginUser User { get; set; }
     }
 
-    public class BusinessUser 
+    public class LoginUser
     {
         [JsonProperty("username")]
         public string UserName { get; set; }

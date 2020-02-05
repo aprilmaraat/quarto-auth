@@ -1,10 +1,11 @@
 ﻿using Quarto.Auth.EF;
 using Quarto.Auth.Models;
+using Quarto.Auth.Web.Models;
 using System;
 using Microsoft.AspNetCore.Identity;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 
 namespace Quarto.Auth.Web.Services
 {
@@ -29,20 +30,21 @@ namespace Quarto.Auth.Web.Services
 
         //private async Task<AuthResponse> GenerateLoginResponse(IPasswordTokenRequest value)
         //{
-        //    try 
+        //    try
         //    {
         //    }
         //    catch (Exception ex)
         //    { }
         //}
 
-        //private async Task<BusinessUser> GetUser(string username, string password)
+        //private async Task<LoginUser> GetUser(string userName, string password)
         //{
         //    try
         //    {
         //        PasswordHasher<string> passwordHasher = new PasswordHasher<string>();
         //        UserData user = await _authContext.UserData
-        //            .FirstOrDefaultAsync(a => a.UserName.ToLower() == username.ToLower());
+        //            .Include(u => u.UserCred)
+        //            .FirstOrDefaultAsync(u => u.UserName == userName);
         //    }
         //    catch (Exception ex)
         //    {
@@ -50,15 +52,27 @@ namespace Quarto.Auth.Web.Services
         //    }
         //}
 
-        private async void CreateUser(UserData user, string password) 
+        private async void CreateUser(UserData user, PasswordTokenRequest registrationRequest) 
         {
             try
             {
-                await _authContext.UserData.AddAsync(user);
+                var passwordHasher = new PasswordHasher<string>();
+                var newUser = await _authContext.UserData.AddAsync(user);
+                if (newUser.State == EntityState.Added)
+                    await _authContext.UserCred
+                        .AddAsync(
+                            new UserCred
+                            {
+                                UserID = newUser.Entity.ID
+                                , UserType = registrationRequest.UserType
+                                , AuthenticationHash = passwordHasher.HashPassword(
+                                    registrationRequest.UserName
+                                    , registrationRequest.Password)
+                            });
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.ToString());
+                Debug.WriteLine(ex.Message);
             }
         }
     }
