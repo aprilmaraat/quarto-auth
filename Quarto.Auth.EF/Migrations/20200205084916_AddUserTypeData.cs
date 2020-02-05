@@ -14,8 +14,7 @@ VALUES (1, 'Land Owner')
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("DELETE FROM [enum.User.Type] " +
-                "WHERE ID = 1 AND ID = 2");
+            migrationBuilder.Sql(@"DELETE FROM [enum.User.Type] WHERE ID IN (1, 2)");
         }
     }
 }
