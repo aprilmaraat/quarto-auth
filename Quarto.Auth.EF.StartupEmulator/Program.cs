@@ -16,6 +16,12 @@ namespace Quarto.Auth.EF.StartupEmulator
         public class AuthContextFactory : IDesignTimeDbContextFactory<AuthContext>
         {
             private const string migrationOptionsFileName = "MigrationOptions.json";
+            /// <summary>
+            /// Method to create MigrationOptions.json file (if not created) 
+            /// that should contain the connection string for Quarto.Auth.Master
+            /// </summary>
+            /// <param name="args"></param>
+            /// <returns></returns>
             public AuthContext CreateDbContext(string[] args)
             {
                 while (!File.Exists(migrationOptionsFileName))
