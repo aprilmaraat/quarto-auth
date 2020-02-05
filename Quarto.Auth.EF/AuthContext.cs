@@ -5,11 +5,21 @@ namespace Quarto.Auth.EF
 {
     public partial class AuthContext : DbContext
     {
+        public AuthContext(DbContextOptions<AuthContext> options) : base(options)
+        {
+        }
+
         public virtual DbSet<EnumUserType> EnumUserType { get; set; }
         public virtual DbSet<UserData> UserData { get; set; }
         public virtual DbSet<UserCred> UserCred { get; set; }
 
-
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.EnableSensitiveDataLogging(false);
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {
@@ -28,6 +38,8 @@ namespace Quarto.Auth.EF
             {
                 entity.ToTable("User.Data");
 
+                entity.Property(e => e.ID);
+
                 entity.Property(e => e.UserName)
                     .HasColumnType("varchar(255)")
                     .IsRequired();
@@ -45,11 +57,33 @@ namespace Quarto.Auth.EF
                 entity.Property(e => e.DisplayName)
                     .HasColumnType("varchar(255)");
 
-
                 entity.Property(e => e.PasswordChangeDT)
                     .HasColumnType("datetime2(0)");
                 entity.Property(e => e.ResetPassword)
                     .HasDefaultValueSql("0");
+            });
+            modelBuilder.Entity<UserCred>(entity => 
+            {
+                entity.ToTable("User.Cred");
+
+                entity.HasKey(e => new { e.UserID, e.UserType});
+
+                entity.Property(e => e.UserID);
+                entity.Property(e => e.UserType).HasColumnType("tinyint");
+                entity.Property(e => e.AuthenticationHash);
+                entity.Property(e => e.LastUsedDT);
+
+                entity.HasOne(e => e.User)
+                    .WithOne(e => e.UserCred)
+                    .HasForeignKey<UserCred>(e => e.UserID)
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .HasConstraintName("FK_User.Cred_User.Data");
+
+                entity.HasOne(e => e.EnumUserType)
+                    .WithOne(e => e.UserCred)
+                    .HasForeignKey<UserCred>(e => e.UserType)
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .HasConstraintName("FK_User.Cred_enum.User.Type");
             });
         }
     }
