@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
+﻿
 namespace Quarto.Auth.Models
 {
     public enum UserType : byte

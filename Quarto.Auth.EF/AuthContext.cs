@@ -16,9 +16,7 @@ namespace Quarto.Auth.EF
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-            {
                 optionsBuilder.EnableSensitiveDataLogging(false);
-            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
