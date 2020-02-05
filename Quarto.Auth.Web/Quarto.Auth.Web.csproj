@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>09cda8f3-8bf5-4494-92b8-91d044d4477d</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Quarto.Auth.EF\Quarto.Auth.EF.csproj" />
+    <ProjectReference Include="..\Quarto.Auth.Models\Quarto.Auth.Models.csproj" />
+  </ItemGroup>
+
+
+</Project>

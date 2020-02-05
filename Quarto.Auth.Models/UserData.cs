@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Auth.Models.Entities
+namespace Quarto.Auth.Models
 {
     public partial class UserData
     {
@@ -19,5 +19,9 @@ namespace Auth.Models.Entities
         /// Set to true if this user needs to reset password
         /// </summary>
         public bool ResetPassword { get; set; }
+        /// <summary>
+        /// Navigation property: UserCred
+        /// </summary>
+        public virtual UserCred UserCred { get; set; }
     }
 }
