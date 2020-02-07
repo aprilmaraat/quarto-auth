@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace Quarto.Auth.Models
 {
@@ -9,9 +10,14 @@ namespace Quarto.Auth.Models
         public string AuthenticationHash { get; set; }
         public DateTime LastUsedDT { get; set; }
         /// <summary>
-        /// Navigation Property: UserData
+        /// Navigation property: UserData
         /// </summary>
+        [JsonIgnore]
         public virtual UserData User { get; set; }
+        /// <summary>
+        /// Navigation property: EnumUserType
+        /// </summary>
+        [JsonIgnore]
         public virtual EnumUserType EnumUserType { get; set; }
     }
 }

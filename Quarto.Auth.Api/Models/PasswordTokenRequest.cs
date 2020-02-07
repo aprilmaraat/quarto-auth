@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Quarto.Auth.Models;
 
-namespace Quarto.Auth.Web.Models
+namespace Quarto.Auth.Api.Models
 {
     public interface IPasswordTokenRequest
     { 

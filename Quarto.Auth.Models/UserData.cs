@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace Quarto.Auth.Models
 {
@@ -20,6 +21,7 @@ namespace Quarto.Auth.Models
         /// <summary>
         /// Navigation property: UserCred
         /// </summary>
+        [JsonIgnore]
         public virtual UserCred UserCred { get; set; }
     }
 }

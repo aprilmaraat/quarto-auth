@@ -2,7 +2,7 @@
 using Quarto.Auth.EF;
 using System.Threading.Tasks;
 
-namespace Quarto.Auth.Web.Services
+namespace Quarto.Auth.Api.Services
 {
     public class AuthService
     {

@@ -2,9 +2,9 @@
 using Quarto.Auth.EF;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Primitives;
-using Quarto.Auth.Web.Models;
+using Quarto.Auth.Api.Models;
 
-namespace Quarto.Auth.Web.Controllers
+namespace Quarto.Auth.Api.Controllers
 {
     [Route("[controller]")]
     public class TokenController : Controller

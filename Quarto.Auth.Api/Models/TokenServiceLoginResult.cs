@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Quarto.Auth.Web.Models
+namespace Quarto.Auth.Api.Models
 {
     public class TokenServiceLoginResult
     {

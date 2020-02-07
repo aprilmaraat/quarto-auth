@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Quarto.Auth.Web.Models;
+using Quarto.Auth.Api.Models;
 
-namespace Quarto.Auth.Web.Services
+namespace Quarto.Auth.Api.Services
 {
     public class TokenServiceLoginResult
     {

@@ -1,13 +1,14 @@
 ﻿using Quarto.Auth.EF;
 using Quarto.Auth.Models;
-using Quarto.Auth.Web.Models;
+using Quarto.Auth.Api.Models;
 using System;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using Quarto.Auth.Api.Models.Responses;
 
-namespace Quarto.Auth.Web.Services
+namespace Quarto.Auth.Api.Services
 {
     public class TokenService
     {
@@ -52,12 +53,13 @@ namespace Quarto.Auth.Web.Services
         //    }
         //}
 
-        private async void CreateUser(UserData user, PasswordTokenRequest registrationRequest) 
+        private async Task<Response> CreateUser(UserData user, PasswordTokenRequest registrationRequest) 
         {
             try
             {
                 var passwordHasher = new PasswordHasher<string>();
                 var newUser = await _authContext.UserData.AddAsync(user);
+                await _authContext.SaveChangesAsync();
                 if (newUser.State == EntityState.Added)
                     await _authContext.UserCred
                         .AddAsync(
