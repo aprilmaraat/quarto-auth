@@ -3,30 +3,48 @@ using Quarto.Auth.EF;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Primitives;
 using Quarto.Auth.Api.Models;
+using Quarto.Auth.Api.Services;
+using Quarto.Auth.Models;
 
 namespace Quarto.Auth.Api.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/auth")]
     public class TokenController : Controller
     {
-        private readonly AuthContext _authContext;
         //logging here
+        private readonly ITokenService _tokenService;
 
-        public TokenController(AuthContext authContext)
+        public TokenController(ITokenService tokenService) 
         {
-            _authContext = authContext;
+            _tokenService = tokenService;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="loginRequest"></param>
+        /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] PasswordTokenRequest loginRequest)
+        [Route("register")]
+        public async Task<IActionResult> Register([FromBody] RegistrationRequest registrationRequest)
         {
             //logger here
+
             string userAgent = GetUserAgent();
 
             //if(loginRequest.UserType == 1)
 
+            var response = await _tokenService.CreateUser(registrationRequest);
 
-            return new UnauthorizedResult();
+            switch (response.State)
+            {
+                case ResponseState.Exception:
+                    return StatusCode(500, response.Exception);
+                case ResponseState.Error:
+                    return BadRequest(response.MessageText);
+                default:
+                    return Ok();
+            }
         }
 
         /// <summary>

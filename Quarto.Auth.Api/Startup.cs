@@ -4,12 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Quarto.Auth.EF;
+using Microsoft.EntityFrameworkCore;
+using Quarto.Auth.Api.Services;
 
 namespace Quarto.Auth.Api
 {
@@ -25,6 +25,9 @@ namespace Quarto.Auth.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<AuthContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("Master")));
+            services.AddTransient<ITokenService, TokenService>();
             services.AddControllers();
         }
 

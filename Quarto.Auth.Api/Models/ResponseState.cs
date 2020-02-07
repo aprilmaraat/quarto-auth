@@ -1,6 +1,6 @@
 ﻿
 
-namespace Quarto.Auth.Api.Models.Responses
+namespace Quarto.Auth.Api.Models
 {
     /// <summary>
     /// The state of the Response

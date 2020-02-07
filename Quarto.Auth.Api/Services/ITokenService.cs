@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Quarto.Auth.Api.Models;
+using Quarto.Auth.Models;
 
 namespace Quarto.Auth.Api.Services
 {
-    public class TokenServiceLoginResult
+    public interface ITokenService
     {
-        public AuthResponse TokenLoginResponse { get; internal set; }
-        public bool Success { get; set; }
+        Task<Response> CreateUser(RegistrationRequest registrationRequest);
     }
 }

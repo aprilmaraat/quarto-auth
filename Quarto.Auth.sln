@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29521.150
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quarto.Auth.Web", "Quarto.Auth.Web\Quarto.Auth.Web.csproj", "{BFB314CE-A392-45E2-893C-757187EB6C87}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quarto.Auth.Models", "Quarto.Auth.Models\Quarto.Auth.Models.csproj", "{FA039AA7-EEA7-4DB8-BE13-87BA99BE3A2B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quarto.Auth.EF.StartupEmulator", "Quarto.Auth.EF.StartupEmulator\Quarto.Auth.EF.StartupEmulator.csproj", "{B1DA71FB-C970-4BB8-92CA-B5D287463FA6}"
@@ -19,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BFB314CE-A392-45E2-893C-757187EB6C87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BFB314CE-A392-45E2-893C-757187EB6C87}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BFB314CE-A392-45E2-893C-757187EB6C87}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BFB314CE-A392-45E2-893C-757187EB6C87}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FA039AA7-EEA7-4DB8-BE13-87BA99BE3A2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FA039AA7-EEA7-4DB8-BE13-87BA99BE3A2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA039AA7-EEA7-4DB8-BE13-87BA99BE3A2B}.Release|Any CPU.ActiveCfg = Release|Any CPU

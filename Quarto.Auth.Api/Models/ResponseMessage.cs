@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Quarto.Auth.Api.Models.Responses
+namespace Quarto.Auth.Api.Models
 {
     /// <summary>
     /// Possible reponse messages

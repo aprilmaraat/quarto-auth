@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Quarto.Auth.Api.Models.Responses
+namespace Quarto.Auth.Api.Models
 {
     public class Response
     {/// <summary>

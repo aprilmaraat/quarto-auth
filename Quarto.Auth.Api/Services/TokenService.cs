@@ -6,11 +6,10 @@ using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
-using Quarto.Auth.Api.Models.Responses;
 
 namespace Quarto.Auth.Api.Services
 {
-    public class TokenService
+    public class TokenService : ITokenService
     {
         private readonly AuthContext _authContext;
 
@@ -53,12 +52,12 @@ namespace Quarto.Auth.Api.Services
         //    }
         //}
 
-        private async Task<Response> CreateUser(UserData user, PasswordTokenRequest registrationRequest)
+        public async Task<Response> CreateUser(RegistrationRequest registrationRequest)
         {
             try
             {
                 var passwordHasher = new PasswordHasher<string>();
-                var newUser = await _authContext.UserData.AddAsync(user);
+                var newUser = await _authContext.UserData.AddAsync(registrationRequest.UserData);
                 await _authContext.SaveChangesAsync();
                 if (newUser.State == EntityState.Added)
                     await _authContext.UserCred
@@ -66,10 +65,10 @@ namespace Quarto.Auth.Api.Services
                             new UserCred
                             {
                                 UserID = newUser.Entity.ID
-                                , UserType = registrationRequest.UserType
+                                , UserType = registrationRequest.PasswordTokenRequest.UserType
                                 , AuthenticationHash = passwordHasher.HashPassword(
-                                    registrationRequest.UserName
-                                    , registrationRequest.Password)
+                                    registrationRequest.PasswordTokenRequest.UserName
+                                    , registrationRequest.PasswordTokenRequest.Password)
                             });
                 return new Response
                 {
