@@ -53,7 +53,7 @@ namespace Quarto.Auth.Api.Services
         //    }
         //}
 
-        private async Task<Response> CreateUser(UserData user, PasswordTokenRequest registrationRequest) 
+        private async Task<Response> CreateUser(UserData user, PasswordTokenRequest registrationRequest)
         {
             try
             {
@@ -71,10 +71,21 @@ namespace Quarto.Auth.Api.Services
                                     registrationRequest.UserName
                                     , registrationRequest.Password)
                             });
+                return new Response
+                {
+                    State = ResponseState.Success,
+                    Message = ResponseMessage.Success
+                };
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+                return new Response 
+                { 
+                    State = ResponseState.Exception,
+                    Message = ResponseMessage.Exception,
+                    ErrorText = null,
+                    Exception = ex
+                };
             }
         }
     }
