@@ -14,7 +14,7 @@ namespace Quarto.Auth.Api.Controllers
         //logging here
         private readonly ITokenService _tokenService;
 
-        public TokenController(ITokenService tokenService) 
+        public TokenController(ITokenService tokenService)
         {
             _tokenService = tokenService;
         }
@@ -29,10 +29,6 @@ namespace Quarto.Auth.Api.Controllers
         public async Task<IActionResult> Register([FromBody] RegistrationRequest registrationRequest)
         {
             //logger here
-
-            string userAgent = GetUserAgent();
-
-            //if(loginRequest.UserType == 1)
 
             var response = await _tokenService.CreateUser(registrationRequest);
 

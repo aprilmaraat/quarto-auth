@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Quarto.Auth.Models;
+﻿using Quarto.Auth.Models;
 
 namespace Quarto.Auth.Api.Models
 {

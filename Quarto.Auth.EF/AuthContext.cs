@@ -50,9 +50,6 @@ namespace Quarto.Auth.EF
                 entity.HasIndex(e => e.EmailAddress)
                     .HasName("IX_User.Data_EmailAddress");
 
-                entity.Property(e => e.PhoneNumber)
-                    .HasColumnType("varchar(255)");
-
                 entity.Property(e => e.DisplayName)
                     .HasColumnType("varchar(255)");
 
