@@ -1,15 +1,15 @@
 ﻿using Quarto.Auth.Models;
 using Newtonsoft.Json;
 
-namespace Quarto.Auth.Web.Models
+namespace Quarto.Auth.Api.Models
 {
     public class AuthResponse
     {
         [JsonProperty("user")]
-        public BusinessUser User { get; set; }
+        public LoginUser User { get; set; }
     }
 
-    public class BusinessUser 
+    public class LoginUser
     {
         [JsonProperty("username")]
         public string UserName { get; set; }

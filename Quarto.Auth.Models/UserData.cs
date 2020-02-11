@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using Newtonsoft.Json;
 
 namespace Quarto.Auth.Models
 {
@@ -9,7 +8,6 @@ namespace Quarto.Auth.Models
         public int ID { get; set; }
         public string UserName { get; set; }
         public string EmailAddress { get; set; }
-        public string PhoneNumber { get; set; }
         public string DisplayName { get; set; }
         /// <summary>
         /// Date and time of the last password change of user.
@@ -22,6 +20,7 @@ namespace Quarto.Auth.Models
         /// <summary>
         /// Navigation property: UserCred
         /// </summary>
+        [JsonIgnore]
         public virtual UserCred UserCred { get; set; }
     }
 }

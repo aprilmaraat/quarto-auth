@@ -12,13 +12,12 @@ namespace Quarto.Auth.EF
         public virtual DbSet<EnumUserType> EnumUserType { get; set; }
         public virtual DbSet<UserData> UserData { get; set; }
         public virtual DbSet<UserCred> UserCred { get; set; }
+        public virtual DbSet<LoggingData> LoggingData { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-            {
                 optionsBuilder.EnableSensitiveDataLogging(false);
-            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
@@ -51,9 +50,6 @@ namespace Quarto.Auth.EF
                 entity.HasIndex(e => e.EmailAddress)
                     .HasName("IX_User.Data_EmailAddress");
 
-                entity.Property(e => e.PhoneNumber)
-                    .HasColumnType("varchar(255)");
-
                 entity.Property(e => e.DisplayName)
                     .HasColumnType("varchar(255)");
 
@@ -84,6 +80,14 @@ namespace Quarto.Auth.EF
                     .HasForeignKey<UserCred>(e => e.UserType)
                     .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("FK_User.Cred_enum.User.Type");
+            });
+            modelBuilder.Entity<LoggingData>(entity => 
+            {
+                entity.ToTable("Logging.Data");
+                entity.Property(e => e.ID);
+                entity.Property(e => e.ErrorType).HasColumnType("varchar(255)");
+                entity.Property(e => e.Description).HasColumnType("varchar(max)");
+                entity.HasKey(e => e.ID);
             });
         }
     }

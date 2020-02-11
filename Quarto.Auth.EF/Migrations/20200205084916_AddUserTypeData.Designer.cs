@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Quarto.Auth.EF;
 
 namespace Quarto.Auth.EF.Migrations
 {
     [DbContext(typeof(AuthContext))]
-    partial class AuthContextModelSnapshot : ModelSnapshot
+    [Migration("20200205084916_AddUserTypeData")]
+    partial class AddUserTypeData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,24 +32,6 @@ namespace Quarto.Auth.EF.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("enum.User.Type");
-                });
-
-            modelBuilder.Entity("Quarto.Auth.Models.LoggingData", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("varchar(max)");
-
-                    b.Property<string>("ErrorType")
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Logging.Data");
                 });
 
             modelBuilder.Entity("Quarto.Auth.Models.UserCred", b =>
@@ -90,6 +74,9 @@ namespace Quarto.Auth.EF.Migrations
 
                     b.Property<DateTime?>("PasswordChangeDT")
                         .HasColumnType("datetime2(0)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<bool>("ResetPassword")
                         .ValueGeneratedOnAdd()

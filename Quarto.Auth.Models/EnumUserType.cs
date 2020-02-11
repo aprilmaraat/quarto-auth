@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Newtonsoft.Json;
 
 namespace Quarto.Auth.Models
 {
@@ -13,8 +13,9 @@ namespace Quarto.Auth.Models
         public UserType ID { get; set; }
         public string Name { get; set; }
         /// <summary>
-        /// Navigation property: To UserCred
+        /// Navigation property: UserCred
         /// </summary>
+        [JsonIgnore]
         public virtual UserCred UserCred { get; set; }
     }
 }

@@ -53,7 +53,7 @@ namespace Quarto.Auth.EF.StartupEmulator
                 string connectionString = args[0];
                 var optionsBuilder = new DbContextOptionsBuilder<AuthContext>();
                 Console.WriteLine($"Using connection string: {connectionString}");
-                optionsBuilder.UseSqlServer<AuthContext>(connectionString);
+                optionsBuilder.UseSqlServer(connectionString);
 
                 return new AuthContext(optionsBuilder.Options);
             }

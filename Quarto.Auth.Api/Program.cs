@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Quarto.Auth.Web
+namespace Quarto.Auth.Api
 {
     public class Program
     {
