@@ -25,6 +25,7 @@ namespace Quarto.Auth.Api
                 options.UseSqlServer(Configuration.GetConnectionString("Master")));
             services.AddTransient<ITokenService, TokenService>();
             services.AddControllers();
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,13 +35,10 @@ namespace Quarto.Auth.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
+            app.UseCors(t => t.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

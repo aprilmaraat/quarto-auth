@@ -39,12 +39,6 @@ namespace Quarto.Auth.EF
 
                 entity.Property(e => e.ID);
 
-                entity.Property(e => e.UserName)
-                    .HasColumnType("varchar(255)")
-                    .IsRequired();
-                entity.HasIndex(e => e.UserName)
-                    .HasName("IX_User.Data_UserName");
-
                 entity.Property(e => e.EmailAddress)
                     .HasColumnType("varchar(255)");
                 entity.HasIndex(e => e.EmailAddress)
