@@ -4,8 +4,8 @@ using Quarto.Auth.Api.Models;
 using System;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
-using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Quarto.Auth.Api.Services
 {
@@ -52,6 +52,19 @@ namespace Quarto.Auth.Api.Services
         //    }
         //}
 
+        public async Task<Response<List<UserData>>> GetUsers() 
+        {
+            try
+            {
+                var data = await _authContext.UserData.ToListAsync();
+                return Response<List<UserData>>.Success(data);
+            }
+            catch (Exception ex)
+            {
+                return Response<List<UserData>>.Error(ex);
+            }
+        }
+
         public async Task<Response> CreateUser(RegistrationRequest registrationRequest)
         {
             try
@@ -59,32 +72,29 @@ namespace Quarto.Auth.Api.Services
                 var passwordHasher = new PasswordHasher<string>();
                 var newUser = await _authContext.UserData.AddAsync(registrationRequest.UserData);
                 await _authContext.SaveChangesAsync();
-                if (newUser.State == EntityState.Added)
-                    await _authContext.UserCred
+                await _authContext.UserCred
                         .AddAsync(
                             new UserCred
                             {
-                                UserID = newUser.Entity.ID
-                                , UserType = registrationRequest.PasswordTokenRequest.UserType
-                                , AuthenticationHash = passwordHasher.HashPassword(
+                                UserID = registrationRequest.UserData.ID
+                                ,
+                                UserType = registrationRequest.PasswordTokenRequest.UserType
+                                ,
+                                AuthenticationHash = passwordHasher.HashPassword(
                                     registrationRequest.PasswordTokenRequest.UserName
                                     , registrationRequest.PasswordTokenRequest.Password)
                             });
-                return new Response
-                {
-                    State = ResponseState.Success,
-                    Message = ResponseMessage.Success
-                };
+                await _authContext.SaveChangesAsync();
+                //return new Response
+                //{
+                //    State = ResponseState.Success,
+                //    Message = ResponseMessage.Success
+                //};
+                return Response.Success();
             }
             catch (Exception ex)
             {
-                return new Response 
-                { 
-                    State = ResponseState.Exception,
-                    Message = ResponseMessage.Exception,
-                    ErrorText = null,
-                    Exception = ex
-                };
+                return Response.Error(ex);
             }
         }
     }

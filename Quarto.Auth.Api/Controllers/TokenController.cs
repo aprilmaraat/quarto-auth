@@ -19,6 +19,21 @@ namespace Quarto.Auth.Api.Controllers
             _tokenService = tokenService;
         }
 
+        public async Task<IActionResult> Users()
+        {
+            var response = await _tokenService.GetUsers();
+
+            switch (response.State)
+            {
+                case ResponseState.Exception:
+                    return StatusCode(500, response.Exception);
+                case ResponseState.Error:
+                    return BadRequest(response.MessageText);
+                default:
+                    return Ok(response);
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
