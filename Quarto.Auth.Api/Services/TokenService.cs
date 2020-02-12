@@ -18,53 +18,6 @@ namespace Quarto.Auth.Api.Services
             _authContext = authContext;
         }
 
-        //public async Task<TokenServiceLoginResult> Login(IPasswordTokenRequest value)
-        //{
-        //    try
-        //    {
-        //        AuthResponse loginResponse = 
-        //    }
-        //    catch (Exception ex)
-        //    { }
-        //}
-
-        //private async Task<AuthResponse> GenerateLoginResponse(IPasswordTokenRequest value)
-        //{
-        //    try
-        //    {
-        //    }
-        //    catch (Exception ex)
-        //    { }
-        //}
-
-        //private async Task<LoginUser> GetUser(string userName, string password)
-        //{
-        //    try
-        //    {
-        //        PasswordHasher<string> passwordHasher = new PasswordHasher<string>();
-        //        UserData user = await _authContext.UserData
-        //            .Include(u => u.UserCred)
-        //            .FirstOrDefaultAsync(u => u.UserName == userName);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return null;
-        //    }
-        //}
-
-        public async Task<Response<List<UserData>>> GetUsers() 
-        {
-            try
-            {
-                var data = await _authContext.UserData.ToListAsync();
-                return Response<List<UserData>>.Success(data);
-            }
-            catch (Exception ex)
-            {
-                return Response<List<UserData>>.Error(ex);
-            }
-        }
-
         public async Task<Response> CreateUser(RegistrationRequest registrationRequest)
         {
             try
@@ -85,11 +38,6 @@ namespace Quarto.Auth.Api.Services
                                     , registrationRequest.PasswordTokenRequest.Password)
                             });
                 await _authContext.SaveChangesAsync();
-                //return new Response
-                //{
-                //    State = ResponseState.Success,
-                //    Message = ResponseMessage.Success
-                //};
                 return Response.Success();
             }
             catch (Exception ex)
