@@ -20,29 +20,34 @@ namespace Quarto.Auth.Api.Services
 
         public async Task<Response> CreateUser(RegistrationRequest registrationRequest)
         {
-            try
+            using (var transaction = _authContext.Database.BeginTransaction())
             {
-                var passwordHasher = new PasswordHasher<string>();
-                var newUser = await _authContext.UserData.AddAsync(registrationRequest.UserData);
-                await _authContext.SaveChangesAsync();
-                await _authContext.UserCred
-                        .AddAsync(
-                            new UserCred
-                            {
-                                UserID = registrationRequest.UserData.ID
-                                ,
-                                UserType = registrationRequest.PasswordTokenRequest.UserType
-                                ,
-                                AuthenticationHash = passwordHasher.HashPassword(
-                                    registrationRequest.PasswordTokenRequest.UserName
-                                    , registrationRequest.PasswordTokenRequest.Password)
-                            });
-                await _authContext.SaveChangesAsync();
-                return Response.Success();
-            }
-            catch (Exception ex)
-            {
-                return Response.Error(ex);
+                try
+                {
+                    var passwordHasher = new PasswordHasher<string>();
+                    var newUser = await _authContext.UserData.AddAsync(registrationRequest.UserData);
+                    await _authContext.SaveChangesAsync();
+                    await _authContext.UserCred
+                            .AddAsync(
+                                new UserCred
+                                {
+                                    UserID = registrationRequest.UserData.ID
+                                    ,
+                                    UserType = registrationRequest.PasswordTokenRequest.UserType
+                                    ,
+                                    AuthenticationHash = passwordHasher.HashPassword(
+                                        registrationRequest.PasswordTokenRequest.UserName
+                                        , registrationRequest.PasswordTokenRequest.Password)
+                                });
+                    await _authContext.SaveChangesAsync();
+                    await transaction.CommitAsync();
+                    return Response.Success();
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    return Response.Error(ex);
+                }
             }
         }
     }

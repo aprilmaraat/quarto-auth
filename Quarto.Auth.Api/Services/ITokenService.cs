@@ -8,7 +8,6 @@ namespace Quarto.Auth.Api.Services
 {
     public interface ITokenService
     {
-        Task<Response<List<UserData>>> GetUsers();
         Task<Response> CreateUser(RegistrationRequest registrationRequest);
     }
 }
