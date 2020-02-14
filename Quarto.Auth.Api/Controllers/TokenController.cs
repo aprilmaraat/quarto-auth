@@ -39,7 +39,7 @@ namespace Quarto.Auth.Api.Controllers
                 case ResponseState.Error:
                     return BadRequest(response.MessageText);
                 default:
-                    return Ok();
+                    return Ok(response);
             }
         }
 
