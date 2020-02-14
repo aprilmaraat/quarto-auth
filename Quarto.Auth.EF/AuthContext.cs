@@ -56,7 +56,7 @@ namespace Quarto.Auth.EF
             {
                 entity.ToTable("User.Cred");
 
-                entity.HasKey(e => new { e.UserID, e.UserType});
+                entity.HasKey(e => e.UserID);
 
                 entity.Property(e => e.UserID);
                 entity.Property(e => e.UserType).HasColumnType("tinyint");
