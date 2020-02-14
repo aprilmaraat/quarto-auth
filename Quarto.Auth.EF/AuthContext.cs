@@ -42,10 +42,8 @@ namespace Quarto.Auth.EF
                 entity.Property(e => e.EmailAddress)
                     .HasColumnType("varchar(255)");
                 entity.HasIndex(e => e.EmailAddress)
-                    .HasName("IX_User.Data_EmailAddress");
-
-                entity.Property(e => e.DisplayName)
-                    .HasColumnType("varchar(255)");
+                    .HasName("IX_User.Data_EmailAddress")
+                    .IsUnique();
 
                 entity.Property(e => e.PasswordChangeDT)
                     .HasColumnType("datetime2(0)");

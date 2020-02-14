@@ -24,6 +24,12 @@ namespace Quarto.Auth.Api.Services
             {
                 try
                 {
+                    var existUser = await _authContext.UserData
+                        .FirstOrDefaultAsync(u => u.EmailAddress == registrationRequest.UserData.EmailAddress);
+
+                    if (existUser != null)
+                        return Response.Error("Email Address already in use.");
+
                     var passwordHasher = new PasswordHasher<string>();
                     var newUser = await _authContext.UserData.AddAsync(registrationRequest.UserData);
                     await _authContext.SaveChangesAsync();
@@ -31,15 +37,14 @@ namespace Quarto.Auth.Api.Services
                             .AddAsync(
                                 new UserCred
                                 {
-                                    UserID = registrationRequest.UserData.ID
-                                    ,
-                                    UserType = registrationRequest.PasswordTokenRequest.UserType
-                                    ,
+                                    UserID = registrationRequest.UserData.ID,
+                                    UserType = registrationRequest.PasswordTokenRequest.UserType,
                                     AuthenticationHash = passwordHasher.HashPassword(
-                                        registrationRequest.PasswordTokenRequest.UserName
+                                        registrationRequest.UserData.EmailAddress
                                         , registrationRequest.PasswordTokenRequest.Password)
                                 });
                     await _authContext.SaveChangesAsync();
+
                     await transaction.CommitAsync();
                     return Response.Success();
                 }

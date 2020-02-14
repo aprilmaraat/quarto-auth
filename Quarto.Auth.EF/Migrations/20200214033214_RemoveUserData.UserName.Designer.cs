@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Quarto.Auth.EF;
 
 namespace Quarto.Auth.EF.Migrations
 {
     [DbContext(typeof(AuthContext))]
-    partial class AuthContextModelSnapshot : ModelSnapshot
+    [Migration("20200214033214_RemoveUserData.UserName")]
+    partial class RemoveUserDataUserName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,9 +95,7 @@ namespace Quarto.Auth.EF.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("EmailAddress")
-                        .IsUnique()
-                        .HasName("IX_User.Data_EmailAddress")
-                        .HasFilter("[EmailAddress] IS NOT NULL");
+                        .HasName("IX_User.Data_EmailAddress");
 
                     b.ToTable("User.Data");
                 });
