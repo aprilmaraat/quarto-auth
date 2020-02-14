@@ -18,6 +18,11 @@ namespace Quarto.Auth.Api.Services
             _authContext = authContext;
         }
 
+        private bool CheckStringIsEmpty(string data) 
+        {
+            return string.IsNullOrEmpty(data) || string.IsNullOrWhiteSpace(data);
+        }
+
         public async Task<Response> CreateUser(RegistrationRequest registrationRequest)
         {
             using (var transaction = _authContext.Database.BeginTransaction())
@@ -31,19 +36,27 @@ namespace Quarto.Auth.Api.Services
                         return Response.Error("Email Address already in use.");
 
                     var passwordHasher = new PasswordHasher<string>();
-                    var newUser = await _authContext.UserData.AddAsync(registrationRequest.UserData);
-                    await _authContext.SaveChangesAsync();
-                    await _authContext.UserCred
-                            .AddAsync(
-                                new UserCred
-                                {
-                                    UserID = registrationRequest.UserData.ID,
-                                    UserType = registrationRequest.PasswordTokenRequest.UserType,
-                                    AuthenticationHash = passwordHasher.HashPassword(
-                                        registrationRequest.UserData.EmailAddress
-                                        , registrationRequest.PasswordTokenRequest.Password)
-                                });
-                    await _authContext.SaveChangesAsync();
+                    if (!CheckStringIsEmpty(registrationRequest.UserData.EmailAddress)
+                        || !CheckStringIsEmpty(registrationRequest.PasswordTokenRequest.Password))
+                    {
+                        await _authContext.UserData.AddAsync(registrationRequest.UserData);
+                        await _authContext.SaveChangesAsync();
+                        await _authContext.UserCred
+                                .AddAsync(
+                                    new UserCred
+                                    {
+                                        UserID = registrationRequest.UserData.ID,
+                                        UserType = registrationRequest.PasswordTokenRequest.UserType,
+                                        AuthenticationHash = passwordHasher.HashPassword(
+                                            registrationRequest.UserData.EmailAddress
+                                            , registrationRequest.PasswordTokenRequest.Password)
+                                    });
+                        await _authContext.SaveChangesAsync();
+                    }
+                    else 
+                    {
+                        return Response.Error("Email Address or Password is invalid. Please check the fields for errors.");
+                    }
 
                     await transaction.CommitAsync();
                     return Response.Success();
