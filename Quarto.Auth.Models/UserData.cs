@@ -7,7 +7,6 @@ namespace Quarto.Auth.Models
     {
         public int ID { get; set; }
         public string EmailAddress { get; set; }
-        public string DisplayName { get; set; }
         /// <summary>
         /// Date and time of the last password change of user.
         /// </summary>

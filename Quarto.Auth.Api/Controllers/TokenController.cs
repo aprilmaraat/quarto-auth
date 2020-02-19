@@ -19,27 +19,45 @@ namespace Quarto.Auth.Api.Controllers
             _tokenService = tokenService;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="loginRequest"></param>
-        /// <returns></returns>
         [HttpPost]
-        [Route("register")]
-        public async Task<IActionResult> Register([FromBody] RegistrationRequest registrationRequest)
+        [Route("login")]
+        public async Task<IActionResult> Login([FromBody] PasswordTokenRequest passwordTokenRequest)
         {
             //logger here
 
-            var response = await _tokenService.CreateUser(registrationRequest);
+            var response = await _tokenService.Login(passwordTokenRequest);
 
             switch (response.State)
             {
                 case ResponseState.Exception:
-                    return StatusCode(500, response.Exception);
+                    return StatusCode(500, response.Exception.Message);
                 case ResponseState.Error:
                     return BadRequest(response.MessageText);
                 default:
-                    return Ok();
+                    return Ok(response);
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="registrationRequest"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("register")]
+        public async Task<IActionResult> Register([FromBody] PasswordTokenRequest passwordTokenRequest)
+        {
+            //logger here
+
+            var response = await _tokenService.CreateUser(passwordTokenRequest);
+
+            switch (response.State)
+            {
+                case ResponseState.Exception:
+                    return StatusCode(500, response.Exception.Message);
+                case ResponseState.Error:
+                    return BadRequest(response.MessageText);
+                default:
+                    return Ok(response);
             }
         }
 
