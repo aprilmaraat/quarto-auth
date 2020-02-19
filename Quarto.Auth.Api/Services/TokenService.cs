@@ -28,28 +28,40 @@ namespace Quarto.Auth.Api.Services
             try
             {
                 var passwordHasher = new PasswordHasher<string>();
-                var user = await _authContext.UserCred
-                    .Include(u => u.User)
-                    .FirstOrDefaultAsync(u => u.AuthenticationHash == passwordHasher.HashPassword(passwordTokenRequest.EmailAddress, passwordTokenRequest.Password));
-                if (user == null)
-                    return Response<AuthResponse>.Error("User not found!");
-                var response = new AuthResponse()
-                {
-                    User = new LoginUser()
-                    {
-                        EmailAddress = user.User.EmailAddress,
-                        UserID = user.UserID
-                    }
-                };
+                var user = await _authContext.UserData
+                    .Include(u => u.UserCred)
+                    .FirstOrDefaultAsync(u => u.EmailAddress == passwordTokenRequest.EmailAddress);
 
-                return Response<AuthResponse>.Success(response);
+                if (user != null)
+                {
+                    var isVerified = passwordHasher.VerifyHashedPassword(user.EmailAddress
+                        , user.UserCred.AuthenticationHash, passwordTokenRequest.Password);
+
+                    if (isVerified == PasswordVerificationResult.Success)
+                    {
+                        var response = new AuthResponse()
+                        {
+                            User = new LoginUser()
+                            {
+                                EmailAddress = user.EmailAddress,
+                                UserID = user.ID
+                            }
+                        };
+
+                        return Response<AuthResponse>.Success(response);
+                    }
+
+                    return Response<AuthResponse>.Error("Invalid Email Address or Password!");
+                }
+                
+                return Response<AuthResponse>.Error("User not found!");
             }
             catch (Exception ex)
             {
                 return Response<AuthResponse>.Error(ex.Message);
             }
 
-            return Response<AuthResponse>.Error("");
+            
         }
 
         /// <summary>
@@ -84,7 +96,8 @@ namespace Quarto.Auth.Api.Services
                                         UserType = registrationRequest.UserType,
                                         AuthenticationHash = passwordHasher.HashPassword(
                                             newUser.EmailAddress
-                                            , registrationRequest.Password)
+                                            , registrationRequest.Password),
+                                        LastUsedDT = DateTime.UtcNow
                                     });
                         await _authContext.SaveChangesAsync();
                     }
