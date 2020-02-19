@@ -18,11 +18,16 @@ namespace Quarto.Auth.Api.Services
             _authContext = authContext;
         }
 
-        private bool CheckStringIsEmpty(string data) 
+        private bool CheckStringIsEmpty(string data)
         {
             return string.IsNullOrEmpty(data) || string.IsNullOrWhiteSpace(data);
         }
 
+        /// <summary>
+        /// Used in register endpoint to create a user
+        /// </summary>
+        /// <param name="registrationRequest"></param>
+        /// <returns></returns>
         public async Task<Response> CreateUser(RegistrationRequest registrationRequest)
         {
             using (var transaction = _authContext.Database.BeginTransaction())
@@ -55,7 +60,7 @@ namespace Quarto.Auth.Api.Services
                     }
                     else 
                     {
-                        return Response.Error("Email Address or Password is invalid. Please check the fields for errors.");
+                        return Response.Error("Email Address or Password is invalid.");
                     }
 
                     await transaction.CommitAsync();

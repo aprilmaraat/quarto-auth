@@ -22,7 +22,7 @@ namespace Quarto.Auth.Api.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="loginRequest"></param>
+        /// <param name="registrationRequest"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("register")]
