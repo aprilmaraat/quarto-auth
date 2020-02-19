@@ -23,38 +23,68 @@ namespace Quarto.Auth.Api.Services
             return string.IsNullOrEmpty(data) || string.IsNullOrWhiteSpace(data);
         }
 
+        public async Task<Response<AuthResponse>> Login(PasswordTokenRequest passwordTokenRequest)
+        {
+            try
+            {
+                var passwordHasher = new PasswordHasher<string>();
+                var user = await _authContext.UserCred
+                    .Include(u => u.User)
+                    .FirstOrDefaultAsync(u => u.AuthenticationHash == passwordHasher.HashPassword(passwordTokenRequest.EmailAddress, passwordTokenRequest.Password));
+                if (user == null)
+                    return Response<AuthResponse>.Error("User not found!");
+                var response = new AuthResponse()
+                {
+                    User = new LoginUser()
+                    {
+                        EmailAddress = user.User.EmailAddress,
+                        UserID = user.UserID
+                    }
+                };
+
+                return Response<AuthResponse>.Success(response);
+            }
+            catch (Exception ex)
+            {
+                return Response<AuthResponse>.Error(ex.Message);
+            }
+
+            return Response<AuthResponse>.Error("");
+        }
+
         /// <summary>
         /// Used in register endpoint to create a user
         /// </summary>
         /// <param name="registrationRequest"></param>
         /// <returns></returns>
-        public async Task<Response> CreateUser(RegistrationRequest registrationRequest)
+        public async Task<Response> CreateUser(PasswordTokenRequest registrationRequest)
         {
             using (var transaction = _authContext.Database.BeginTransaction())
             {
                 try
                 {
                     var existUser = await _authContext.UserData
-                        .FirstOrDefaultAsync(u => u.EmailAddress == registrationRequest.UserData.EmailAddress);
+                        .FirstOrDefaultAsync(u => u.EmailAddress == registrationRequest.EmailAddress);
 
                     if (existUser != null)
                         return Response.Error("Email Address already in use.");
 
                     var passwordHasher = new PasswordHasher<string>();
-                    if (!CheckStringIsEmpty(registrationRequest.UserData.EmailAddress)
-                        || !CheckStringIsEmpty(registrationRequest.PasswordTokenRequest.Password))
+                    if (!CheckStringIsEmpty(registrationRequest.EmailAddress)
+                        || !CheckStringIsEmpty(registrationRequest.Password))
                     {
-                        await _authContext.UserData.AddAsync(registrationRequest.UserData);
+                        var newUser = new UserData { EmailAddress = registrationRequest.EmailAddress };
+                        await _authContext.UserData.AddAsync(newUser);
                         await _authContext.SaveChangesAsync();
                         await _authContext.UserCred
                                 .AddAsync(
                                     new UserCred
                                     {
-                                        UserID = registrationRequest.UserData.ID,
-                                        UserType = registrationRequest.PasswordTokenRequest.UserType,
+                                        UserID = newUser.ID,
+                                        UserType = registrationRequest.UserType,
                                         AuthenticationHash = passwordHasher.HashPassword(
-                                            registrationRequest.UserData.EmailAddress
-                                            , registrationRequest.PasswordTokenRequest.Password)
+                                            newUser.EmailAddress
+                                            , registrationRequest.Password)
                                     });
                         await _authContext.SaveChangesAsync();
                     }

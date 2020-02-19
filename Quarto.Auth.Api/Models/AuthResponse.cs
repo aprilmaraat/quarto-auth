@@ -11,10 +11,10 @@ namespace Quarto.Auth.Api.Models
 
     public class LoginUser
     {
-        [JsonProperty("username")]
-        public string UserName { get; set; }
+        [JsonProperty("emailAddress")]
+        public string EmailAddress { get; set; }
         [JsonProperty("userID")]
         public int UserID { get; set; }
-        public UserData UserData { get; set; }
+        //public UserData UserData { get; set; }
     }
 }
