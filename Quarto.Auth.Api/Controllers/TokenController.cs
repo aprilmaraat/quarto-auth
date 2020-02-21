@@ -1,21 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Quarto.Auth.EF;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Primitives;
 using Quarto.Auth.Api.Models;
 using Quarto.Auth.Api.Services;
-using Quarto.Auth.Models;
+using Quarto.Auth.Api.Singleton;
+using System.Text;
+using System;
 
 namespace Quarto.Auth.Api.Controllers
 {
     [Route("api/auth")]
     public class TokenController : Controller
     {
+        private IAppCache _appCache;
         //logging here
         private readonly ITokenService _tokenService;
 
-        public TokenController(ITokenService tokenService)
+        public TokenController(IAppCache appCache, ITokenService tokenService)
         {
+            _appCache = appCache;
             _tokenService = tokenService;
         }
 
@@ -77,6 +80,26 @@ namespace Quarto.Auth.Api.Controllers
             if (StringValues.IsNullOrEmpty(headers))
                 return null;
             return headers[0];
+        }
+
+        private bool SecretMatches(string auth)
+        {
+            if (auth == null || !auth.StartsWith("Bearer "))
+            {
+                return false;
+            }
+            else
+            {
+                string value = auth.Substring("Bearer ".Length);
+                try
+                {
+                    return Encoding.UTF8.GetString(Convert.FromBase64String(value)) == _appCache.AppSecret;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
         }
     }
 }
