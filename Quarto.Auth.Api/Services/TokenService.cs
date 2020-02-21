@@ -6,15 +6,19 @@ using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using Quarto.Auth.Api.Singleton;
+using System.Text;
 
 namespace Quarto.Auth.Api.Services
 {
     public class TokenService : ITokenService
     {
         private readonly AuthContext _authContext;
+        private IAppCache _appCache;
 
-        public TokenService(AuthContext authContext)
+        public TokenService(IAppCache appCacahe, AuthContext authContext)
         {
+            _appCache = appCacahe;
             _authContext = authContext;
         }
 
@@ -39,13 +43,11 @@ namespace Quarto.Auth.Api.Services
 
                     if (isVerified == PasswordVerificationResult.Success)
                     {
+                        //byte[] token = Convert.FromBase64String(Convert.ToBase64String(Encoding.UTF8.GetBytes(_appCache.AppSecret)));
                         var response = new AuthResponse()
                         {
-                            User = new LoginUser()
-                            {
-                                EmailAddress = user.EmailAddress,
-                                UserID = user.ID
-                            }
+                            EmailAddress = user.EmailAddress,
+                            Token = "Bearer " + Convert.ToBase64String(Encoding.UTF8.GetBytes(_appCache.AppSecret))
                         };
 
                         return Response<AuthResponse>.Success(response);
