@@ -5,7 +5,6 @@ using System;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using Quarto.Auth.Api.Singleton;
 using System.Text;
 
@@ -103,7 +102,7 @@ namespace Quarto.Auth.Api.Services
                                     });
                         await _authContext.SaveChangesAsync();
                     }
-                    else 
+                    else
                     {
                         return Response.Error("Email Address or Password is invalid.");
                     }
