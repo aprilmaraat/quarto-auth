@@ -43,11 +43,11 @@ namespace Quarto.Auth.Api.Services
 
                     if (isVerified == PasswordVerificationResult.Success)
                     {
-                        //byte[] token = Convert.FromBase64String(Convert.ToBase64String(Encoding.UTF8.GetBytes(_appCache.AppSecret)));
                         var response = new AuthResponse()
                         {
                             EmailAddress = user.EmailAddress,
-                            Token = "Bearer " + Convert.ToBase64String(Encoding.UTF8.GetBytes(_appCache.AppSecret))
+                            Token = "Bearer " + Convert.ToBase64String(Encoding.UTF8.GetBytes(_appCache.AppSecret)),
+                            Expiration = DateTime.UtcNow.AddHours(8)
                         };
 
                         return Response<AuthResponse>.Success(response);
