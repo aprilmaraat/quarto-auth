@@ -59,6 +59,40 @@ namespace Quarto.Auth.Test.ControllerTests
             }
         }
 
+        [TestMethod]
+        public async Task LoginTest() 
+        {
+            var context = GetApiContext();
+            //Cleanup
+            var user = context.UserData.Include(u => u.UserCred).FirstOrDefault(u => u.EmailAddress == registerRequest.EmailAddress);
+            if (user != null)
+            {
+                context.UserCred.Remove(user.UserCred);
+                context.SaveChanges();
+                context.UserData.Remove(user);
+                context.SaveChanges();
+            }
+            registerRequest.UserType = Models.UserType.LandOwner;
+            HttpResponseMessage response = await ControllerTestHelper.POST($"{baseUrl}/register", registerRequest);
+            Assert.IsTrue(response.IsSuccessStatusCode);
+            PasswordTokenRequest loginRequest = new PasswordTokenRequest 
+            {
+                EmailAddress = registerRequest.EmailAddress,
+                Password = registerRequest.Password
+            };
+            response = await ControllerTestHelper.POST($"{baseUrl}/login", loginRequest);
+            Assert.IsTrue(response.IsSuccessStatusCode);
+            //Cleanup
+            user = context.UserData.Include(u => u.UserCred).FirstOrDefault(u => u.EmailAddress == registerRequest.EmailAddress);
+            if (user != null)
+            {
+                context.UserCred.Remove(user.UserCred);
+                context.SaveChanges();
+                context.UserData.Remove(user);
+                context.SaveChanges();
+            }
+        }
+
         private AuthContext GetApiContext()
         {
             var optionsBuilder = new DbContextOptionsBuilder<AuthContext>();
