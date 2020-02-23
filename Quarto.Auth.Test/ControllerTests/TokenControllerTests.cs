@@ -2,8 +2,9 @@
 using System.Threading.Tasks;
 using Quarto.Auth.Api.Models;
 using System.Net.Http;
-using System.Text;
-using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Quarto.Auth.EF;
 
 namespace Quarto.Auth.Test.ControllerTests
 {
@@ -22,14 +23,49 @@ namespace Quarto.Auth.Test.ControllerTests
         [TestMethod]
         public async Task RegisterUserTest()
         {
+            var context = GetApiContext();
+            //Cleanup
+            var user = context.UserData.Include(u => u.UserCred).FirstOrDefault(u => u.EmailAddress == registerRequest.EmailAddress);
+            if (user != null) 
+            {
+                context.UserCred.Remove(user.UserCred);
+                context.SaveChanges();
+                context.UserData.Remove(user);
+                context.SaveChanges();
+            }
             registerRequest.UserType = Models.UserType.LandOwner;
-
             HttpResponseMessage response = await ControllerTestHelper.POST($"{baseUrl}/register", registerRequest);
             Assert.IsTrue(response.IsSuccessStatusCode);
             //Cleanup
-            string token = Convert.ToBase64String(Encoding.UTF8.GetBytes("5e2c2534-bba3-45c6-9785-d5990d57028f"));
-            response = await ControllerTestHelper.DELETE($"{baseUrl}/test/delete/{registerRequest.EmailAddress}", token);
+            user = context.UserData.Include(u => u.UserCred).FirstOrDefault(u => u.EmailAddress == registerRequest.EmailAddress);
+            if (user != null)
+            {
+                context.UserCred.Remove(user.UserCred);
+                context.SaveChanges();
+                context.UserData.Remove(user);
+                context.SaveChanges();
+            }
+            registerRequest.UserType = Models.UserType.Tenant;
+            response = await ControllerTestHelper.POST($"{baseUrl}/register", registerRequest);
             Assert.IsTrue(response.IsSuccessStatusCode);
+            //Cleanup
+            user = context.UserData.Include(u => u.UserCred).FirstOrDefault(u => u.EmailAddress == registerRequest.EmailAddress);
+            if (user != null)
+            {
+                context.UserCred.Remove(user.UserCred);
+                context.SaveChanges();
+                context.UserData.Remove(user);
+                context.SaveChanges();
+            }
+        }
+
+        private AuthContext GetApiContext()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<AuthContext>();
+            string connString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=\"Quarto.Master\";User ID=sa;Password=pass123456";
+            optionsBuilder.UseSqlServer(connString);
+            var result = new AuthContext(optionsBuilder.Options);
+            return result;
         }
     }
 }
