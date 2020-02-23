@@ -12,9 +12,10 @@ namespace Quarto.Auth.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
-            Configuration = configuration;
+            IConfigurationBuilder builder = GetConfigurationBuilder(environment);
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -29,6 +30,16 @@ namespace Quarto.Auth.Api
             services.AddSingleton<IAppCache>(authCache);
             services.AddControllers();
             services.AddCors();
+        }
+
+        private IConfigurationBuilder GetConfigurationBuilder(IWebHostEnvironment env)
+        {
+            return new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddUserSecrets<Startup>()
+                .AddEnvironmentVariables();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

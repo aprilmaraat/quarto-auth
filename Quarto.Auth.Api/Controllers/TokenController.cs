@@ -9,7 +9,7 @@ using System;
 
 namespace Quarto.Auth.Api.Controllers
 {
-    [Route("api/auth")]
+    [Route("api/token")]
     public class TokenController : Controller
     {
         private IAppCache _appCache;

@@ -10,5 +10,6 @@ namespace Quarto.Auth.Api.Services
     {
         Task<Response<AuthResponse>> Login(PasswordTokenRequest passwordTokenRequest);
         Task<Response> CreateUser(PasswordTokenRequest registrationRequest);
+        Task<Response> DeleteUser(string emailAddress);
     }
 }
