@@ -35,7 +35,7 @@ namespace Quarto.Auth.Api.Controllers
                 case ResponseState.Exception:
                     return StatusCode(500, response.Exception.Message);
                 case ResponseState.Error:
-                    return BadRequest(response.MessageText);
+                    return BadRequest(response.MessageText); 
                 default:
                     return Ok(response);
             }

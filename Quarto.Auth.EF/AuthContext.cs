@@ -8,7 +8,6 @@ namespace Quarto.Auth.EF
         public AuthContext(DbContextOptions<AuthContext> options) : base(options)
         {
         }
-
         public virtual DbSet<EnumUserType> EnumUserType { get; set; }
         public virtual DbSet<UserData> UserData { get; set; }
         public virtual DbSet<UserCred> UserCred { get; set; }
