@@ -22,6 +22,11 @@ namespace Quarto.Auth.Api.Controllers
             _tokenService = tokenService;
         }
 
+        /// <summary>
+        /// Endpoint for logging in to Quarto WebApp
+        /// </summary>
+        /// <param name="passwordTokenRequest"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] PasswordTokenRequest passwordTokenRequest)
@@ -41,7 +46,7 @@ namespace Quarto.Auth.Api.Controllers
             }
         }
         /// <summary>
-        /// 
+        /// Endpoint for registering new user for Quarto WebApp
         /// </summary>
         /// <param name="registrationRequest"></param>
         /// <returns></returns>
@@ -82,6 +87,11 @@ namespace Quarto.Auth.Api.Controllers
             return headers[0];
         }
 
+        /// <summary>
+        /// Checkes if the Authorization header matches the app secret
+        /// </summary>
+        /// <param name="auth"></param>
+        /// <returns></returns>
         private bool SecretMatches(string auth)
         {
             if (auth == null || !auth.StartsWith("Bearer "))

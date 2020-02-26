@@ -15,5 +15,7 @@
     <ProjectReference Include="..\Quarto.Auth.Models\Quarto.Auth.Models.csproj" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="http://json.schemastore.org/jsbeautifyrc-nested" /></VisualStudio></ProjectExtensions>
+
 
 </Project>
