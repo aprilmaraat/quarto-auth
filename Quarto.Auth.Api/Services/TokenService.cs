@@ -21,11 +21,6 @@ namespace Quarto.Auth.Api.Services
             _authContext = authContext;
         }
 
-        private bool CheckStringIsEmpty(string data)
-        {
-            return string.IsNullOrEmpty(data) || string.IsNullOrWhiteSpace(data);
-        }
-
         public async Task<Response<AuthResponse>> Login(PasswordTokenRequest passwordTokenRequest)
         {
             try
@@ -116,6 +111,11 @@ namespace Quarto.Auth.Api.Services
                     return Response.Error(ex);
                 }
             }
+        }
+
+        private bool CheckStringIsEmpty(string data)
+        {
+            return string.IsNullOrEmpty(data) || string.IsNullOrWhiteSpace(data);
         }
     }
 }
