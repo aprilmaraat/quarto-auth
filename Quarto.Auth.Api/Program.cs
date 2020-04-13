@@ -13,6 +13,7 @@ namespace Quarto.Auth.Api
     {
         public static void Main(string[] args)
         {
+            Console.Title = "Quarto.Auth";
             CreateHostBuilder(args).Build().Run();
         }
 
