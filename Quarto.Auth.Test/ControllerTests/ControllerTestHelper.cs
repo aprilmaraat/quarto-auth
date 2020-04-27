@@ -1,13 +1,8 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
-using System.Collections.Generic;
-using Microsoft.Extensions.Configuration;
 
 namespace Quarto.Auth.Test.ControllerTests
 {
