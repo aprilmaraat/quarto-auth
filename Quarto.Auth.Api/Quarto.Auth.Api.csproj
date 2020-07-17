@@ -8,11 +8,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Quarto.Auth.EF\Quarto.Auth.EF.csproj" />
-    <ProjectReference Include="..\Quarto.Auth.Models\Quarto.Auth.Models.csproj" />
+    <PackageReference Include="Quarto.Auth.EF" Version="1.0.1" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="http://json.schemastore.org/jsbeautifyrc-nested" /></VisualStudio></ProjectExtensions>

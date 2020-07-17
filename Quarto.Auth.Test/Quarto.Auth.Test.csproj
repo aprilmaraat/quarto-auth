@@ -24,8 +24,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Quarto.Auth.Api\Quarto.Auth.Api.csproj" />
-    <ProjectReference Include="..\Quarto.Auth.EF\Quarto.Auth.EF.csproj" />
-    <ProjectReference Include="..\Quarto.Auth.Models\Quarto.Auth.Models.csproj" />
   </ItemGroup>
 
 </Project>
