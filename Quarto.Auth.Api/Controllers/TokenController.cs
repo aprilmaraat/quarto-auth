@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Primitives;
 using Quarto.Auth.Api.Models;
 using Quarto.Auth.Api.Services;
-using Quarto.Auth.Api.Singleton;
 using System.Text;
 using System;
+using Quarto.Common.Package;
 
 namespace Quarto.Auth.Api.Controllers
 {

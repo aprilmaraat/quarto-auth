@@ -5,8 +5,8 @@ using System;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Quarto.Auth.Api.Singleton;
 using System.Text;
+using Quarto.Common.Package;
 
 namespace Quarto.Auth.Api.Services
 {

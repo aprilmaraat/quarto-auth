@@ -7,6 +7,7 @@ using Quarto.Auth.EF;
 using Microsoft.EntityFrameworkCore;
 using Quarto.Auth.Api.Services;
 using Quarto.Auth.Api.Singleton;
+using Quarto.Common.Package;
 
 namespace Quarto.Auth.Api
 {
