@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Quarto.Auth.Api\Quarto.Auth.Api.csproj" />
+    <ProjectReference Include="..\Quarto.Auth.Api\Quarto.Auth.csproj" />
   </ItemGroup>
 
 </Project>

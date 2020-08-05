@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Primitives;
-using Quarto.Auth.Api.Models;
-using Quarto.Auth.Api.Services;
+using Quarto.Auth.Models;
+using Quarto.Auth.Services;
 using System.Text;
 using System;
 using Quarto.Common.Package;
 
-namespace Quarto.Auth.Api.Controllers
+namespace Quarto.Auth.Controllers
 {
     [Route("api/token")]
     public class TokenController : Controller

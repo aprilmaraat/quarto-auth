@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
-using Quarto.Auth.Api.Models;
+using Quarto.Auth.Models;
 using System.Net.Http;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;

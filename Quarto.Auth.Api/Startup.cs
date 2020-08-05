@@ -5,11 +5,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Quarto.Auth.EF;
 using Microsoft.EntityFrameworkCore;
-using Quarto.Auth.Api.Services;
-using Quarto.Auth.Api.Singleton;
+using Quarto.Auth.Services;
+using Quarto.Auth.Singleton;
 using Quarto.Common.Package;
 
-namespace Quarto.Auth.Api
+namespace Quarto.Auth
 {
     public class Startup
     {

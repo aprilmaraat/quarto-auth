@@ -1,6 +1,5 @@
 ﻿using Quarto.Auth.EF;
 using Quarto.Auth.Models;
-using Quarto.Auth.Api.Models;
 using System;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
@@ -8,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Text;
 using Quarto.Common.Package;
 
-namespace Quarto.Auth.Api.Services
+namespace Quarto.Auth.Services
 {
     public class TokenService : ITokenService
     {
