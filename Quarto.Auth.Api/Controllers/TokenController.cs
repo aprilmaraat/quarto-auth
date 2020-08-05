@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Primitives;
-using Quarto.Auth.Api.Models;
-using Quarto.Auth.Api.Services;
-using Quarto.Auth.Api.Singleton;
+using Quarto.Auth.Models;
+using Quarto.Auth.Services;
 using System.Text;
 using System;
+using Quarto.Common.Package;
 
-namespace Quarto.Auth.Api.Controllers
+namespace Quarto.Auth.Controllers
 {
     [Route("api/token")]
     public class TokenController : Controller
@@ -22,6 +22,11 @@ namespace Quarto.Auth.Api.Controllers
             _tokenService = tokenService;
         }
 
+        /// <summary>
+        /// Endpoint for logging in to Quarto WebApp
+        /// </summary>
+        /// <param name="passwordTokenRequest"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] PasswordTokenRequest passwordTokenRequest)
@@ -41,7 +46,7 @@ namespace Quarto.Auth.Api.Controllers
             }
         }
         /// <summary>
-        /// 
+        /// Endpoint for registering new user for Quarto WebApp
         /// </summary>
         /// <param name="registrationRequest"></param>
         /// <returns></returns>
@@ -82,6 +87,11 @@ namespace Quarto.Auth.Api.Controllers
             return headers[0];
         }
 
+        /// <summary>
+        /// Checkes if the Authorization header matches the app secret
+        /// </summary>
+        /// <param name="auth"></param>
+        /// <returns></returns>
         private bool SecretMatches(string auth)
         {
             if (auth == null || !auth.StartsWith("Bearer "))

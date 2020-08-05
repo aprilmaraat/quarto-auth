@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>2f4dfa13-0798-43b9-8fda-f333d78876d3</UserSecretsId>
+    <AssemblyName>Quarto.Auth</AssemblyName>
+    <RootNamespace>Quarto.Auth</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Quarto.Auth.EF" Version="1.0.4" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="http://json.schemastore.org/jsbeautifyrc-nested" /></VisualStudio></ProjectExtensions>
+
+
+</Project>

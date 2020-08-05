@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Quarto.Auth.Api.Models;
 using Quarto.Auth.Models;
 
-namespace Quarto.Auth.Api.Services
+namespace Quarto.Auth.Services
 {
     public interface ITokenService
     {

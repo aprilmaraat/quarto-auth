@@ -1,6 +1,6 @@
 ﻿using Quarto.Auth.Models;
 
-namespace Quarto.Auth.Api.Models
+namespace Quarto.Auth.Models
 {
     public class PasswordTokenRequest
     {

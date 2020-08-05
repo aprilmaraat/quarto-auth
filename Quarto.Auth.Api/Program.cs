@@ -7,12 +7,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Quarto.Auth.Api
+namespace Quarto.Auth
 {
     public class Program
     {
         public static void Main(string[] args)
         {
+            Console.Title = "Quarto.Auth";
             CreateHostBuilder(args).Build().Run();
         }
 

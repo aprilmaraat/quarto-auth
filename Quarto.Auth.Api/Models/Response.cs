@@ -1,11 +1,12 @@
 ﻿using System;
 
-namespace Quarto.Auth.Api.Models
+namespace Quarto.Auth.Models
 {
     public class Response
-    {/// <summary>
-     /// Specifies the state of the response
-     /// </summary>
+    {
+        /// <summary>
+        /// Specifies the state of the response
+        /// </summary>
         public ResponseState State { get; set; }
         /// <summary>
         /// Specifies whether the response state is success or not
@@ -43,7 +44,7 @@ namespace Quarto.Auth.Api.Models
         /// </summary>
         public Exception Exception { get; set; }
         /// <summary>
-        /// Creates a success response of the specified type.
+        /// Creates a success response.
         /// </summary>
         public static Response Success()
         {
@@ -56,10 +57,9 @@ namespace Quarto.Auth.Api.Models
             };
         }
         /// <summary>
-        /// Creates a validation error response of the specified type.
+        /// Creates a validation error response.
         /// </summary>
-        /// <param name="message">Error message explaining the failure</param>
-        /// <returns></returns>
+        /// <param name="message">Error message type</param>
         public static Response Error(ResponseMessage message)
         {
             return new Response
@@ -71,10 +71,9 @@ namespace Quarto.Auth.Api.Models
             };
         }
         /// <summary>
-        /// Creates a validation error response of the specified type.
+        /// Creates a validation error response.
         /// </summary>
         /// <param name="errorText">Error message explaining the failure</param>
-        /// <returns></returns>
         public static Response Error(string errorText)
         {
             return new Response
@@ -89,7 +88,6 @@ namespace Quarto.Auth.Api.Models
         /// Creates a Exception of the specified type.
         /// </summary>
         /// <param name="exception">Exception that caused the failure</param>
-        /// <returns></returns>
         public static Response Error(Exception exception)
         {
             return new Response

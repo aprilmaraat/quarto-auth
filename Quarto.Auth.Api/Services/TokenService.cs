@@ -1,14 +1,13 @@
 ﻿using Quarto.Auth.EF;
 using Quarto.Auth.Models;
-using Quarto.Auth.Api.Models;
 using System;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Quarto.Auth.Api.Singleton;
 using System.Text;
+using Quarto.Common.Package;
 
-namespace Quarto.Auth.Api.Services
+namespace Quarto.Auth.Services
 {
     public class TokenService : ITokenService
     {
@@ -19,11 +18,6 @@ namespace Quarto.Auth.Api.Services
         {
             _appCache = appCacahe;
             _authContext = authContext;
-        }
-
-        private bool CheckStringIsEmpty(string data)
-        {
-            return string.IsNullOrEmpty(data) || string.IsNullOrWhiteSpace(data);
         }
 
         public async Task<Response<AuthResponse>> Login(PasswordTokenRequest passwordTokenRequest)
@@ -116,6 +110,11 @@ namespace Quarto.Auth.Api.Services
                     return Response.Error(ex);
                 }
             }
+        }
+
+        private bool CheckStringIsEmpty(string data)
+        {
+            return string.IsNullOrEmpty(data) || string.IsNullOrWhiteSpace(data);
         }
     }
 }
