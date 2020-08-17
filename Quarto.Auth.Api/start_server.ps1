@@ -1,4 +1,4 @@
-﻿set-location "D:\Projects\quarto-auth\Quarto.Auth"
+﻿set-location "D:\Projects\quarto-auth\Quarto.Auth.Api"
 $launchProfile = 'LocalHTTPS';
 dotnet user-secrets list | ForEach-Object { [environment]::SetEnvironmentVariable("APPSETTING_"+$_.Substring(0,$_.IndexOf("=")),$_.Substring($_.IndexOf("=")+1));}
 $launchSettings = Get-Content .\Properties\launchSettings.json | ConvertFrom-Json;
