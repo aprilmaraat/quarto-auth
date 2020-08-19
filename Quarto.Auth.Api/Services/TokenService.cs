@@ -80,7 +80,10 @@ namespace Quarto.Auth.Services
                     if (!CheckStringIsEmpty(registrationRequest.EmailAddress)
                         || !CheckStringIsEmpty(registrationRequest.Password))
                     {
-                        var newUser = new UserData { EmailAddress = registrationRequest.EmailAddress };
+                        var newUser = new UserData 
+                        { 
+                            EmailAddress = registrationRequest.EmailAddress 
+                        };
                         await _authContext.UserData.AddAsync(newUser);
                         await _authContext.SaveChangesAsync();
                         await _authContext.UserCred
