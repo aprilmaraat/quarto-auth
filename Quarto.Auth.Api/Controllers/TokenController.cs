@@ -10,15 +10,13 @@ using Quarto.Common.Package;
 namespace Quarto.Auth.Controllers
 {
     [Route("api/token")]
-    public class TokenController : Controller
+    public class TokenController : BaseController
     {
-        private IAppCache _appCache;
         //logging here
         private readonly ITokenService _tokenService;
 
-        public TokenController(IAppCache appCache, ITokenService tokenService)
+        public TokenController(IAppCache appCache, ITokenService tokenService) : base(appCache)
         {
-            _appCache = appCache;
             _tokenService = tokenService;
         }
 
@@ -33,7 +31,9 @@ namespace Quarto.Auth.Controllers
         {
             //logger here
 
-            var response = await _tokenService.Login(passwordTokenRequest);
+            string userAgent = GetUserAgent();
+
+            var response = await _tokenService.Login(passwordTokenRequest, userAgent);
 
             switch (response.State)
             {
@@ -79,37 +79,12 @@ namespace Quarto.Auth.Controllers
         /// of the requesting user agent.
         /// </summary>
         /// <returns></returns>
-        private string GetUserAgent() 
+        private string GetUserAgent()
         {
             StringValues headers = Request.Headers["User-Agent"];
             if (StringValues.IsNullOrEmpty(headers))
                 return null;
             return headers[0];
-        }
-
-        /// <summary>
-        /// Checkes if the Authorization header matches the app secret
-        /// </summary>
-        /// <param name="auth"></param>
-        /// <returns></returns>
-        private bool SecretMatches(string auth)
-        {
-            if (auth == null || !auth.StartsWith("Bearer "))
-            {
-                return false;
-            }
-            else
-            {
-                string value = auth.Substring("Bearer ".Length);
-                try
-                {
-                    return Encoding.UTF8.GetString(Convert.FromBase64String(value)) == _appCache.AppSecret;
-                }
-                catch
-                {
-                    return false;
-                }
-            }
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Quarto.Auth.Services
             _authContext = authContext;
         }
 
-        public async Task<Response<AuthResponse>> Login(PasswordTokenRequest passwordTokenRequest)
+        public async Task<Response<AuthResponse>> Login(PasswordTokenRequest passwordTokenRequest, string userAgent)
         {
             try
             {
