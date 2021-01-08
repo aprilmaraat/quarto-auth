@@ -25,8 +25,7 @@ namespace Quarto.Auth.Controllers
         /// </summary>
         /// <param name="passwordTokenRequest"></param>
         /// <returns></returns>
-        [HttpPost]
-        [Route("login")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] PasswordTokenRequest passwordTokenRequest)
         {
             //logger here
@@ -50,8 +49,7 @@ namespace Quarto.Auth.Controllers
         /// </summary>
         /// <param name="registrationRequest"></param>
         /// <returns></returns>
-        [HttpPost]
-        [Route("register")]
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] PasswordTokenRequest passwordTokenRequest)
         {
             //logger here
