@@ -3,8 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Primitives;
 using Quarto.Auth.Models;
 using Quarto.Auth.Services;
-using System.Text;
-using System;
 using Quarto.Common.Package;
 
 namespace Quarto.Auth.Controllers
