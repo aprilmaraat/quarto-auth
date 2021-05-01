@@ -54,9 +54,6 @@ namespace Quarto.Auth
             app.UseRouting();
             app.UseAuthorization();
             app.UseHttpsRedirection();
-            
-            
-            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
